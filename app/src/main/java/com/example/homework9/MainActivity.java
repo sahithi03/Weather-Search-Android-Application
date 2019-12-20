@@ -136,17 +136,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle extras = getIntent().getExtras();
-        //setContentView(R.layout.activity_main);
+        
 
         if (extras != null) {
             flag = extras.getString("flag");
-            //System.out.println(flag);
+           
         }
         if (flag == "option1"){
-            //System.out.println("hello from option1");
+            
             setContentView(R.layout.activity_main);
             mPager = findViewById(R.id.mainViewPager);
-            //mPager.setOffscreenPageLimit(10);
+            
             tabLayout = findViewById(R.id.tabDots);
             tabLayout.setupWithViewPager(mPager,true);
 
@@ -201,8 +201,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (flag.equalsIgnoreCase("option2")) {
-
-            //System.out.println("inside option 2");
+            
             String[] text = extras.getString("address").split(",");
             address = extras.getString("address");
             city = address.split(",")[0];
@@ -251,12 +250,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         requestQueue.add(geocodeJSON);
+}
 
 
-    }
-
-
-    private void getForecast(String lat, String lon) {
+        private void getForecast(String lat, String lon) {
         summaryIcon = findViewById(R.id.summaryIconID);
         temperatureText = findViewById(R.id.temperatureTextID);
         summaryText = findViewById(R.id.summaryTextID);
@@ -284,7 +281,7 @@ public class MainActivity extends AppCompatActivity {
 
         getGooglePhotos();
 
-        String url = "http://weathersearchcsci571.us-east-2.elasticbeanstalk.com/forecast/45aa47c3d7fb9ce5fe6cbe0bc841aab0/" + lat + "/" + lon;
+        String url = "http://weathersearchcsci571.us-east-2.elasticbeanstalk.com/forecast/API_KEY/" + lat + "/" + lon;
         JsonObjectRequest forecastJSON = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @SuppressLint("SetTextI18n")
             @Override
@@ -303,8 +300,7 @@ public class MainActivity extends AppCompatActivity {
                         SharedPreferences prefA  = getSharedPreferences("prefs",MODE_PRIVATE);
                         Map<String, ?> allEntries = prefA.getAll();
                         for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
-//                        System.out.println("inside option2 of get forecast");
-//                        System.out.println("map values"+ entry.getKey() + ": " + entry.getValue().toString());
+
                         Gson gson = new Gson();
                         Type type = new TypeToken<ArrayList<String>>() {}.getType();
                         String json = entry.getValue().toString();
@@ -312,9 +308,6 @@ public class MainActivity extends AppCompatActivity {
                         ArrayList<String> newFav = new ArrayList<String>();
                         newFav.add(fetch.get(0));
                         newFav.add(fetch.get(1));
-                        //System.out.println("==============================================");
-                        //System.out.println(fetch.get(1));
-
                         favsList.add(newFav);
 
                     }
@@ -322,8 +315,6 @@ public class MainActivity extends AppCompatActivity {
                         mPager.setAdapter(favoritePagerAdapter);
                     }
                     else {
-                        //System.out.println("hello"+ getSharedPreferences("prefs",Context.MODE_PRIVATE).getAll().size());
-
                         String sumIcon = response.getJSONObject("currently").getString("icon");
                         String iconToDisplay = hash_map.get(sumIcon);
                         int summaryId = getResources().getIdentifier("com.example.homework9:drawable/" + iconToDisplay, null, null);
@@ -476,8 +467,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void secondScreen(View view) {
-        //Toast.makeText(this,"you have clicked ", Toast.LENGTH_LONG).show();
-
         Bundle extras = new Bundle();
         extras.putIntArray("icons", TodayIcons);
         extras.putStringArrayList("values", (ArrayList<String>) TodayValues);
@@ -491,9 +480,6 @@ public class MainActivity extends AppCompatActivity {
         extras.putString("address", address);
 
         extras.putStringArray("googleImages", googleImages);
-
-
-
         Intent intent = new Intent(MainActivity.this, SecondActivity.class);
         intent.putExtras(extras);
 
@@ -511,8 +497,7 @@ public class MainActivity extends AppCompatActivity {
             FloatingActionButton fav = findViewById(R.id.favButton);
             fav.setImageResource(R.drawable.ic_map_marker_plus);
 
-            //System.out.println(forecastResponse);
-            //favoritePagerAdapter.notifyDataSetChanged();
+            
         }
         else{
             Gson gson = new Gson();
@@ -520,14 +505,13 @@ public class MainActivity extends AppCompatActivity {
             tempList.add(forecastResponse.toString());
             tempList.add(address);
 
-            //String[] tempList = new String[]{forecastResponse.toString(),address};
             String json = gson.toJson(tempList);
             mEditor.putString(city,json).apply();
             Toast.makeText(MainActivity.this,address + " was added to favorites", Toast.LENGTH_SHORT).show();
             FloatingActionButton fav = findViewById(R.id.favButton);
             fav.setImageResource(R.drawable.map_marker_minus);
 
-            //System.out.println(forecastResponse);
+           
 
 
         }
