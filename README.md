@@ -8,3 +8,4 @@ The home screen of the app is where the user can view the weather conditions of 
 
 Also, a search view is provided at the top where the user can search for the weather conditions of any city around the world using google "Autocomplete" feature.
 
+<img width="273" alt="Screen Shot 2019-12-20 at 4 34 53 PM" src="https://user-images.githubusercontent.com/46659774/71251093-51c90480-2347-11ea-986f-a374bebc5e87.png">
